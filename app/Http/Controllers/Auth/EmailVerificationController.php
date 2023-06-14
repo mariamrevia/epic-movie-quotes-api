@@ -11,7 +11,6 @@ class EmailVerificationController extends Controller
 {
     public function verify(User $id)
     {
-        $user = User::findOrFail($id);
 
         if ($id->markEmailAsVerified()) {
             event(new Verified($id));
