@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\PasswordResetRequest;
 use App\Models\User;
 use App\Notifications\PasswordResetNotification;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
 {
-    public function notify(PasswordResetEmailVeifyRequest $request)
+    public function notify(PasswordResetEmailVeifyRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
         if (!$user) {
@@ -24,11 +25,12 @@ class PasswordResetController extends Controller
         $token = app('auth.password.broker')->createToken($user);
         $verificationUrl = 'http://localhost:5173/?token=' . $token . '&email=' . urlencode($request->email);
         $user->notify(new PasswordResetNotification($verificationUrl));
+        return response()->json(['message' => 'Notification sent']);
 
     }
-    public function update(PasswordResetRequest $request)
+    public function update(PasswordResetRequest $request): JsonResponse
     {
-        $status = Password::reset(
+        $response = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function (User $user, string $password) {
                 $user->forceFill([
@@ -40,6 +42,12 @@ class PasswordResetController extends Controller
                 event(new PasswordReset($user));
             }
         );
+
+        if ($response == Password::PASSWORD_RESET) {
+            return response()->json(['message' => 'Password reset successful']);
+        } else {
+            return response()->json(['message' => 'Password reset failed'], 400);
+        }
     }
 
 }

@@ -7,14 +7,16 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
             ...$request->validated(),
@@ -22,11 +24,12 @@ class AuthController extends Controller
         ]);
 
         $user->notify(new VerifyEmailNotification());
+        return response()->json($user);
     }
 
 
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $username = $request->username;
         $user = User::where(function ($query) use ($username) {
@@ -48,7 +51,7 @@ class AuthController extends Controller
 
         auth()->login($user, $request->remember);
         session()->regenerate();
-        return response()->json(['user' => $user]);
+        return response()->json($user);
 
     }
 }
