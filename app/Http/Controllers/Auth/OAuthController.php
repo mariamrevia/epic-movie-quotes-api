@@ -30,7 +30,8 @@ class OAuthController extends Controller
         );
 
         Auth::login($user);
-        return redirect('http://localhost:5173/newsFeed?confirmed=true');
+        $redirectUrl = config('app.frontend_url') . '/newsFeed?confirmed=true';
+        return redirect($redirectUrl);
     }
 
 }

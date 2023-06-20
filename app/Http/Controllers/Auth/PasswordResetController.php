@@ -23,7 +23,7 @@ class PasswordResetController extends Controller
             return back()->withErrors(['email' => trans('error')]);
         }
         $token = app('auth.password.broker')->createToken($user);
-        $verificationUrl = 'http://localhost:5173/?token=' . $token . '&email=' . urlencode($request->email);
+        $verificationUrl = config('app.frontend_url') . '/?token=' . $token . '&email=' . urlencode($request->email);
         $user->notify(new PasswordResetNotification($verificationUrl));
         return response()->json(['message' => 'Notification sent']);
 
