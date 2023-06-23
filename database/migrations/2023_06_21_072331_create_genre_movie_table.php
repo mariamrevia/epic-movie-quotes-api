@@ -8,25 +8,22 @@ return new class () extends Migration {
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('genre_movie', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id')->unique()->nullable();
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->rememberToken();
             $table->timestamps();
+            $table->foreignId('movie_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
+
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('genre_movie');
     }
 };

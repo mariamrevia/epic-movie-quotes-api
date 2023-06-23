@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -35,5 +36,12 @@ route::controller(PasswordResetController::class) ->group(function () {
 Route::group(['middleware' => ['web']], function () {
     Route::get('/auth/redirect', [OAuthController::class, 'handleRedirect'])->name('oauth.redirect');
     Route::get('/auth/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
+
+});
+
+
+Route::controller(MovieController::class)->group(function () {
+    Route::get('/movies', 'show')->name('movies.show_all');
+    Route::post('/movies', 'store')->name('movies.store');
 
 });

@@ -15,7 +15,8 @@ class EmailVerificationController extends Controller
 
         if ($id->markEmailAsVerified()) {
             event(new Verified($id));
-            return redirect('http://localhost:5173/?confirmed=true');
+            $redirectUrl = config('app.frontend_url') . '/?confirmed=true';
+            return redirect($redirectUrl);
         }
 
     }
