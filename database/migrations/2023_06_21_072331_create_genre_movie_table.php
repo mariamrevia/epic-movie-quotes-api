@@ -14,8 +14,8 @@ return new class () extends Migration {
         Schema::create('genre_movie', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('movie_id')->constrained()->onDelete('cascade');
-            $table->foreignId('genre_id')->constrained()->onDelete('cascade');
+            $table->foreignId('movie_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
 
         });
     }

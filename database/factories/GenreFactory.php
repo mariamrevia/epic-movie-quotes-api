@@ -18,7 +18,7 @@ class GenreFactory extends Factory
     {
         return [
 
-            'title'=>fake()->sentence()
+            'title' => $this->faker->randomElement(['Action', 'Comedy', 'Drama']),
 
             ] ;
     }

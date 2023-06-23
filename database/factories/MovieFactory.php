@@ -9,12 +9,22 @@ class MovieFactory extends Factory
 {
     public function definition()
     {
+        $faker = \Faker\Factory::create('ka_GE');
+        $user  = User::class;
+
         return [
-            'name' => $this->faker->word(),
-            'release_date' => $this->faker->date(),
-            'director' => $this->faker->name(),
+
+            'name' => [
+                'en' => $faker->word(),
+                'ka' =>  $faker->realText(10),
+            ],
+            'director' => [
+                'en' => $faker->firstName() . ' ' . $faker->lastName(),
+                'ka' =>  $faker->realText(10),
+            ],
             'description' => $this->faker->text(),
             'image' => $this->faker->imageUrl(),
+
         ];
     }
 }

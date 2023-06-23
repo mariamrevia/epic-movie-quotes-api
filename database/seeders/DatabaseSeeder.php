@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Movie::factory(5)->create();
+        // Movie::factory(5)->create();
         Genre::factory(5)->create();
         $movies = Movie::all();
         $genres = Genre::all();
