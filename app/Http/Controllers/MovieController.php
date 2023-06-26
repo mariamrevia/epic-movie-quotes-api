@@ -33,8 +33,12 @@ class MovieController extends Controller
 
         + ['user_id' => auth()->id()]);
 
-        $movie->genres()->attach($request->validated(['genre']));
+        $genres = $request->validated(['genre']);
 
+        foreach ($genres as $genreId) {
+            $movie->genres()->attach($genreId);
+
+        }
         return response()->json($movie, 201);
     }
 
