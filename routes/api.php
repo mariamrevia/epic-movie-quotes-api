@@ -43,5 +43,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::controller(MovieController::class)->group(function () {
     Route::get('/movies', 'show')->name('movies.show_all');
     Route::post('/movies', 'store')->name('movies.store');
+    Route::patch('/movies/{movieId}', 'update')->name('movies.update');
+
 
 });

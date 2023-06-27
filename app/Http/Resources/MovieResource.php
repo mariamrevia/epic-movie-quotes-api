@@ -23,8 +23,11 @@ class MovieResource extends JsonResource
             'director'=> $this->getTranslations('director'),
             'year'=>$this->year,
             'image'=>$this->image,
-            'genres' => $this->genres->pluck('title'),
+            'genres' => GenreResource::collection($this->genres),
 
-        ];
+];
+
+
+
     }
 }
