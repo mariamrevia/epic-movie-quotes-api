@@ -49,7 +49,6 @@ class MovieController extends Controller
     {
         $movie = Movie::findOrFail($movieId);
 
-
         $validatedData = $request->validated();
 
 
@@ -58,8 +57,8 @@ class MovieController extends Controller
             $validatedData['image'] = $request->file('image')->store('images');
         }
         $movie->update($validatedData);
-        if (isset($validatedData['genre'])) {
-            $genreIds = $validatedData['genre'];
+        if (isset($validatedData['genres'])) {
+            $genreIds = $validatedData['genres'];
             $movie->genres()->sync($genreIds);
         }
 
