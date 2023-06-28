@@ -13,7 +13,7 @@ class Movie extends Model
 
     use HasTranslations;
 
-    public $translatable = ['name','director' ,'description'];
+    public $translatable = ['name','director' ,'description' ];
     protected $guarded = ['id'];
 
     public function genres(): BelongsToMany
@@ -23,6 +23,11 @@ class Movie extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
     }
 
 
