@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\QuoteContoller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -47,3 +48,5 @@ Route::controller(MovieController::class)->group(function () {
 
 
 });
+
+Route::post('/quotes', [QuoteContoller::class, 'store'])->name('quotes.store');
