@@ -24,6 +24,7 @@ class MovieResource extends JsonResource
             'year'=>$this->year,
             'image'=>$this->image,
             'genres' => GenreResource::collection($this->genres),
+            'quotes'=>QuoteResource::collection($this->quotes)
 
 ];
 

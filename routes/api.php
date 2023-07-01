@@ -50,3 +50,4 @@ Route::controller(MovieController::class)->group(function () {
 });
 
 Route::post('/quotes', [QuoteContoller::class, 'store'])->name('quotes.store');
+Route::patch('/quotes{quoteId}', [QuoteContoller::class, 'update'])->name('quotes.store');
