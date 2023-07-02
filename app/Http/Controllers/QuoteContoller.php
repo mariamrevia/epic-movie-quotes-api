@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Storage;
 
 class QuoteContoller extends Controller
 {
+    public function show(): JsonResponse
+    {
+        $quotes = QuoteResource::collection(Quote::all());
+        return response()->json($quotes, 200);
+    }
+
     public function store(StoreQuoteRequest $request): JsonResponse
     {
         $quote = Quote::create([...$request->validated(), 'image' => $request->file('image')->store('images')]);

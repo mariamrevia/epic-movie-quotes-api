@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteContoller;
 use Illuminate\Http\Request;
@@ -49,5 +50,10 @@ Route::controller(MovieController::class)->group(function () {
 
 });
 
-Route::post('/quotes', [QuoteContoller::class, 'store'])->name('quotes.store');
-Route::patch('/quotes{quoteId}', [QuoteContoller::class, 'update'])->name('quotes.store');
+Route::controller(QuoteContoller::class)->group(function () {
+    Route::get('/quotes', 'show')->name('quotes.show_all');
+    Route::post('/quotes', 'store')->name('quotes.store');
+    Route::patch('quotes{quoteId}', 'update')->name('quotes.update');
+});
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

@@ -21,4 +21,9 @@ class Quote extends Model
         return $this->belongsTo(Movie::class);
 
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
