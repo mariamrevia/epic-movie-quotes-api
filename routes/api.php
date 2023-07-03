@@ -3,7 +3,10 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\QuoteContoller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -47,3 +50,12 @@ Route::controller(MovieController::class)->group(function () {
 
 
 });
+
+Route::controller(QuoteContoller::class)->group(function () {
+    Route::get('/quotes', 'show')->name('quotes.show_all');
+    Route::post('/quotes', 'store')->name('quotes.store');
+    Route::patch('quotes{quoteId}', 'update')->name('quotes.update');
+});
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
