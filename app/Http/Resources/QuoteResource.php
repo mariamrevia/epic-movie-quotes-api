@@ -29,7 +29,9 @@ class QuoteResource extends JsonResource
                 'year' => $movie->year,
                 'user' =>  $movie->author->username,
             ],
-            'comments' => CommentResource::collection($comments)
+            'comments' => CommentResource::collection($comments),
+            'likes_count' => $this->likes->where('is_liked', true)->count(),
+
 
         ];
     }

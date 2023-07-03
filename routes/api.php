@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteContoller;
 use Illuminate\Http\Request;
@@ -57,3 +58,4 @@ Route::controller(QuoteContoller::class)->group(function () {
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
