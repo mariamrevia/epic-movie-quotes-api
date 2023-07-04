@@ -47,14 +47,14 @@ Route::controller(MovieController::class)->group(function () {
     Route::get('/movies', 'show')->name('movies.show_all');
     Route::post('/movies', 'store')->name('movies.store');
     Route::patch('/movies/{movieId}', 'update')->name('movies.update');
-
-
+    Route::get('/movies/search', 'show')->name('movies.show');
 });
 
 Route::controller(QuoteContoller::class)->group(function () {
     Route::get('/quotes', 'show')->name('quotes.show_all');
     Route::post('/quotes', 'store')->name('quotes.store');
     Route::patch('quotes{quoteId}', 'update')->name('quotes.update');
+    Route::get('/quotes/search', 'show')->name('quotes.show');
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

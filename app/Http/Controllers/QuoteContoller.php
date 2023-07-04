@@ -15,8 +15,10 @@ class QuoteContoller extends Controller
 {
     public function show(): JsonResponse
     {
-        $quotes = QuoteResource::collection(Quote::all());
-        return response()->json($quotes, 200);
+
+        $quotes = Quote::filter(['search' =>  request('search') ?? ''])->get();
+
+        return response()->json(QuoteResource::collection($quotes), 200);
     }
 
     public function store(StoreQuoteRequest $request): JsonResponse
