@@ -48,6 +48,7 @@ Route::controller(MovieController::class)->group(function () {
     Route::post('/movies', 'store')->name('movies.store');
     Route::patch('/movies/{movieId}', 'update')->name('movies.update');
     Route::get('/movies/search', 'show')->name('movies.show');
+    Route::delete('/movies', 'destory')->name('movies.destory');
 });
 
 Route::controller(QuoteContoller::class)->group(function () {
@@ -55,6 +56,7 @@ Route::controller(QuoteContoller::class)->group(function () {
     Route::post('/quotes', 'store')->name('quotes.store');
     Route::patch('quotes{quoteId}', 'update')->name('quotes.update');
     Route::get('/quotes/search', 'show')->name('quotes.show');
+    Route::delete('/quotes', 'destroy')->name('quotes.destroy');
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

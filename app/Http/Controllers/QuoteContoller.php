@@ -45,4 +45,10 @@ class QuoteContoller extends Controller
         return response()->json(QuoteResource::make($quote), 200);
     }
 
+    public function destroy(Quote $quote): JsonResponse
+    {
+        $quote->delete();
+        return response()->json();
+    }
+
 }

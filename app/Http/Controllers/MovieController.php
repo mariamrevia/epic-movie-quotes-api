@@ -65,4 +65,11 @@ class MovieController extends Controller
         return response()->json(MovieResource::make($movie), 200);
     }
 
+
+
+    public function destroy(Movie $movie): JsonResponse
+    {
+        $movie->delete();
+        return response()->json();
+    }
 }
