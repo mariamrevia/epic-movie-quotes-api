@@ -15,8 +15,11 @@ class QuoteContoller extends Controller
 {
     public function show(): JsonResponse
     {
+        $page = request('page') ?? 1;
 
-        $quotes = Quote::filter(['search' =>  request('search') ?? ''])->get();
+        $quotes = Quote::filter(['search' => request('search') ?? ''])
+            ->latest()
+            ->simplePaginate(5, ['*'], 'page', $page);
 
         return response()->json(QuoteResource::collection($quotes), 200);
     }
