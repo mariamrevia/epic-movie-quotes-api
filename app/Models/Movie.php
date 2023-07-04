@@ -29,6 +29,18 @@ class Movie extends Model
     {
         return $this->hasMany(Quote::class);
     }
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter['search'] ?? false, function ($query, $search) {
+            $searchTerm = strtolower($search);
+            $query->where(function ($query) use ($searchTerm) {
+                $query->whereRaw("lower(json_extract(name, '$.en')) LIKE ?", ['%' . $searchTerm . '%'])
+                    ->orWhereRaw("json_extract(name, '$.ka') LIKE ?", ['%' . $searchTerm . '%']);
+            });
+
+        });
+
+    }
 
 
 }
