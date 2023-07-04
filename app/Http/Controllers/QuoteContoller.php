@@ -27,7 +27,7 @@ class QuoteContoller extends Controller
     public function store(StoreQuoteRequest $request): JsonResponse
     {
         $quote = Quote::create([...$request->validated(), 'image' => $request->file('image')->store('images')]);
-        return response()->json($quote, 200);
+        return response()->json(QuoteResource::make($quote), 200);
     }
 
     public function update(UpdateQuoteRequest $request, $quoteId): JsonResponse
@@ -42,7 +42,7 @@ class QuoteContoller extends Controller
         }
 
         $quote->update($quoteAttributes);
-        return response()->json($quote, 200);
+        return response()->json(QuoteResource::make($quote), 200);
     }
 
 }
