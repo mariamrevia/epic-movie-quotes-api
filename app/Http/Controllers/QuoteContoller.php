@@ -15,14 +15,19 @@ class QuoteContoller extends Controller
 {
     public function show(): JsonResponse
     {
-        $quotes = QuoteResource::collection(Quote::all());
-        return response()->json($quotes, 200);
+        $page = request('page') ?? 1;
+
+        $quotes = Quote::filter(['search' => request('search') ?? ''])
+            ->latest()
+            ->simplePaginate(5, ['*'], 'page', $page);
+
+        return response()->json(QuoteResource::collection($quotes), 200);
     }
 
     public function store(StoreQuoteRequest $request): JsonResponse
     {
         $quote = Quote::create([...$request->validated(), 'image' => $request->file('image')->store('images')]);
-        return response()->json($quote, 200);
+        return response()->json(QuoteResource::make($quote), 200);
     }
 
     public function update(UpdateQuoteRequest $request, $quoteId): JsonResponse
@@ -37,7 +42,13 @@ class QuoteContoller extends Controller
         }
 
         $quote->update($quoteAttributes);
-        return response()->json($quote, 200);
+        return response()->json(QuoteResource::make($quote), 200);
+    }
+
+    public function destroy(Quote $quote): JsonResponse
+    {
+        $quote->delete();
+        return response()->json();
     }
 
 }

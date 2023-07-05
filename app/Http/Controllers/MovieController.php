@@ -18,15 +18,15 @@ class MovieController extends Controller
 {
     public function show(): JsonResponse
     {
-
         $genres = GenreResource::collection(Genre::all());
-        $movies = MovieResource::collection(auth()->user()->movies);
+        $movies = Movie::filter(['search' => request('search') ?? ''])->get();
 
         return response()->json([
-            'movies' => $movies,
+            'movies' => MovieResource::collection($movies),
             'genres' => $genres,
         ]);
     }
+
 
 
     public function store(StoreMovieRequest $request): JsonResponse
@@ -42,7 +42,7 @@ class MovieController extends Controller
             $movie->genres()->attach($genreId);
 
         }
-        return response()->json($movie, 201);
+        return response()->json(MovieResource::make($movie), 201);
     }
 
     public function update(UpdateMovieRequest $request, $movieId): JsonResponse
@@ -62,7 +62,14 @@ class MovieController extends Controller
             $movie->genres()->sync($genreIds);
         }
 
-        return response()->json($movie, 200);
+        return response()->json(MovieResource::make($movie), 200);
     }
 
+
+
+    public function destroy(Movie $movie): JsonResponse
+    {
+        $movie->delete();
+        return response()->json();
+    }
 }

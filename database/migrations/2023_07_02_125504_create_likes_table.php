@@ -12,9 +12,9 @@ return new class () extends Migration {
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('quote_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
             $table->boolean('is_liked');
         });
     }
