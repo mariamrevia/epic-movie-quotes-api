@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Log;
 
-class VerifyEmailNotification extends VerifyEmail
+class VerifyNewEmailNotification extends VerifyEmail
 {
     use Queueable;
 
@@ -20,7 +20,12 @@ class VerifyEmailNotification extends VerifyEmail
      *
      * @return array<int, string>
      */
+    protected $newEmail;
 
+    public function __construct($newEmail)
+    {
+        $this->newEmail = $newEmail;
+    }
 
     public function via($notifiable): array
     {
@@ -28,28 +33,29 @@ class VerifyEmailNotification extends VerifyEmail
     }
 
 
-    public function toMail($notifiable): EmailConfirmMail
+    public function toMail($notifiable):EmailConfirmMail
     {
 
-        Log::info($notifiable);
-        $redirectUrl = config('app.frontend_url');
+
+        $redirectUrl = config('app.frontend_url') ;
         $temporarySignedUrl = URL::temporarySignedRoute(
-            'verification.verify',
+            'email_verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification())
+                'hash' => sha1($this->newEmail),
+                'new_email' => $this->newEmail,
             ]
         );
 
         $signedUrlParts = parse_url($temporarySignedUrl);
         $path = str_replace('/api', '', $signedUrlParts['path']);
-        $frontendUrl = $redirectUrl . $path . '?' . $signedUrlParts['query'] . '&verify=true';
-
-        Log::info($frontendUrl);
+        $frontendUrl =  $redirectUrl . $path . '?' . $signedUrlParts['query'];
 
 
-        return (new EmailConfirmMail($frontendUrl))->to($notifiable);
+        return (new EmailConfirmMail($frontendUrl))
+        ->to($this->newEmail)
+        ->subject('Confirm Mail');
     }
 
 

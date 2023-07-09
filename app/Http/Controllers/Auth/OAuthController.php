@@ -18,15 +18,14 @@ class OAuthController extends Controller
 
     public function handleCallback(): RedirectResponse
     {
-
         $googleUser = Socialite::driver('google')->user();
-        $user = User::updateOrCreate(
-            [
-            'google_id' => $googleUser->id,
-            'username' => $googleUser->name,
-            'email' => $googleUser->email
 
-         ]
+        $user = User::updateOrCreate(
+            ['email' => $googleUser->email],
+            [
+                'google_id' => $googleUser->id,
+                'username' => $googleUser->name
+            ]
         );
 
         Auth::login($user);

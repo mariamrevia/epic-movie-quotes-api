@@ -10,7 +10,7 @@
 
             <p
             style="margin-bottom: 16px;  margin:0 auto;color: #010414; font-size: 18px;  margin-top: 0; text-align: center;">
-            Thanks for joining Movie quotes! We really appreciate it. Please click the button below to verify your account:</p>
+            Thanks for joining {{ $verificationUrl }} Movie quotes! We really appreciate it. Please click the button below to verify your account:</p>
 
         </div>
        
