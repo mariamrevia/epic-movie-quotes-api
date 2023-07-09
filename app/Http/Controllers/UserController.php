@@ -15,6 +15,7 @@ use App\Notifications\VerifyEmailNotification;
 use App\Notifications\VerifyNewEmailNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -35,6 +36,9 @@ class UserController extends Controller
         if (empty($data['email'])) {
             unset($data['email']);
         }
+        if (empty($data['image'])) {
+            unset($data['image']);
+        }
         if (isset($data['email']) && $data['email'] !== $user->email) {
             $newEmail = $data['email'];
             unset($data['email']);
@@ -42,6 +46,10 @@ class UserController extends Controller
 
         if (!empty($newEmail)) {
             $user->notify(new VerifyNewEmailNotification($newEmail));
+        }
+        if ($request->hasFile('image')) {
+            Storage::delete($user->image);
+            $data['image'] = $request->file('image')->store('images');
         }
 
         $user->update($data);

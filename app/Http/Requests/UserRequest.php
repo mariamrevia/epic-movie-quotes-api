@@ -9,9 +9,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
+            'username' => 'required_if:anotherfield,value',
+            'email' => 'nullable|required_if:anotherfield,value|email',
+            'password' => 'required_if:anotherfield,value|confirmed',
+            'image'=>'sometimes|required'
         ];
     }
 }
