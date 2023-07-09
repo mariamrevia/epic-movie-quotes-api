@@ -7,9 +7,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteContoller;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,7 @@ Route::controller(MovieController::class)->group(function () {
     Route::post('/movies', 'store')->name('movies.store');
     Route::patch('/movies/{movieId}', 'update')->name('movies.update');
     Route::get('/movies/search', 'show')->name('movies.show');
-    Route::delete('/movies', 'destory')->name('movies.destory');
+    Route::delete('/movies/{movie}', 'destroy')->name('movies.destory');
 });
 
 Route::controller(QuoteContoller::class)->group(function () {
@@ -57,8 +59,16 @@ Route::controller(QuoteContoller::class)->group(function () {
     Route::post('/quotes', 'store')->name('quotes.store');
     Route::patch('quotes{quoteId}', 'update')->name('quotes.update');
     Route::get('/quotes/search', 'show')->name('quotes.show');
-    Route::delete('/quotes', 'destroy')->name('quotes.destroy');
+    Route::delete('/quotes/{quote}', 'destroy')->name('quotes.destroy');
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+
+
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/profile/email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('email.verification_verify');
+    Route::patch('/user/{user}', 'updateUserInfo')->name('user.update');
+});

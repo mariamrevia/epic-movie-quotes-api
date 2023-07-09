@@ -16,20 +16,20 @@ use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
-    public function show(): JsonResponse
+    public function show(): JsonResource
     {
-        $genres = GenreResource::collection(Genre::all());
-        $movies = Movie::filter(['search' => request('search') ?? ''])->get();
+        $user = Auth::user();
 
-        return response()->json([
-            'movies' => MovieResource::collection($movies),
-            'genres' => $genres,
-        ]);
+        $genres = GenreResource::collection(Genre::all());
+        $movies = Movie::filter(['search' => request('search') ?? ''])
+            ->where('user_id', $user->id)
+            ->get();
+
+        return MovieResource::collection($movies)
+            ->additional(['genres' => $genres]);
     }
 
-
-
-    public function store(StoreMovieRequest $request): JsonResponse
+    public function store(StoreMovieRequest $request): JsonResource
     {
 
         $movie = Movie::create([...$request->validated(), 'image' => $request->file('image')->store('images')]
@@ -42,10 +42,10 @@ class MovieController extends Controller
             $movie->genres()->attach($genreId);
 
         }
-        return response()->json(MovieResource::make($movie), 201);
+        return MovieResource::make($movie);
     }
 
-    public function update(UpdateMovieRequest $request, $movieId): JsonResponse
+    public function update(UpdateMovieRequest $request, $movieId): JsonResource
     {
         $movie = Movie::findOrFail($movieId);
 
@@ -62,7 +62,7 @@ class MovieController extends Controller
             $movie->genres()->sync($genreIds);
         }
 
-        return response()->json(MovieResource::make($movie), 200);
+        return MovieResource::make($movie);
     }
 
 
