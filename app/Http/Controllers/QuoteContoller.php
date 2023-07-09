@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class QuoteContoller extends Controller
 {
-    public function show(): JsonResponse
+    public function show(Request $request): JsonResource
     {
         $page = request('page') ?? 1;
 
@@ -21,16 +21,16 @@ class QuoteContoller extends Controller
             ->latest()
             ->simplePaginate(5, ['*'], 'page', $page);
 
-        return response()->json(QuoteResource::collection($quotes), 200);
+        return QuoteResource::collection($quotes);
     }
 
-    public function store(StoreQuoteRequest $request): JsonResponse
+    public function store(StoreQuoteRequest $request): JsonResource
     {
         $quote = Quote::create([...$request->validated(), 'image' => $request->file('image')->store('images')]);
-        return response()->json(QuoteResource::make($quote), 200);
+        return QuoteResource::make($quote);
     }
 
-    public function update(UpdateQuoteRequest $request, $quoteId): JsonResponse
+    public function update(UpdateQuoteRequest $request, $quoteId): JsonResource
     {
 
         $quote = Quote::findOrFail($quoteId);
@@ -42,13 +42,13 @@ class QuoteContoller extends Controller
         }
 
         $quote->update($quoteAttributes);
-        return response()->json(QuoteResource::make($quote), 200);
+        return QuoteResource::make($quote);
     }
 
     public function destroy(Quote $quote): JsonResponse
     {
         $quote->delete();
-        return response()->json();
+        return response()->json('quote deleted');
     }
 
 }
