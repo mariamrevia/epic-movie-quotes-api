@@ -63,7 +63,12 @@ Route::controller(QuoteContoller::class)->group(function () {
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+
+Route::controller(LikeController::class)->group(function () {
+    Route::post('/likes', 'store')->name('likes.store');
+    Route::delete('/likes/{quoteId}', 'destroy')->name('likes.destroy');
+
+});
 
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');

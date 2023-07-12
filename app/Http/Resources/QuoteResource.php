@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,6 +19,7 @@ class QuoteResource extends JsonResource
     {
         $movie = $this->movie;
         $comments = Comment::where('quote_id', $this->id)->get();
+        $like = Like::where('quote_id', $this->id)->get();
 
         return [
             'id' => $this->id,
@@ -30,7 +32,7 @@ class QuoteResource extends JsonResource
                 'user' =>  $movie->author->username,
             ],
             'comments' => CommentResource::collection($comments),
-            'likes_count' => $this->likes->where('is_liked', true)->count(),
+            'likes' => LikeResource::collection($like),
 
 
         ];
