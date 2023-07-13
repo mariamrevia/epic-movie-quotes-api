@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeNotification;
 use App\Events\LikeQuote;
 use App\Events\UnLikeQuote;
 use App\Http\Requests\quote\StoreLikeRequest;
 use App\Http\Resources\LikeResource;
 use App\Models\Like;
+use App\Models\Movie;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
     public function store(StoreLikeRequest $request): JsonResource
     {
-
 
 
         $like =  Like::create(
@@ -26,11 +28,11 @@ class LikeController extends Controller
         return LikeResource::make($like);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy(Quote $quoteId): JsonResponse
     {
-        $quote = Quote::find($id);
 
-        $like = $quote->likes()->where('user_id', auth()->id())->first();
+
+        $like = $quoteId->likes()->where('user_id', auth()->id())->first();
         event(new UnLikeQuote($like));
         $like->delete();
         return response()->json(204);
