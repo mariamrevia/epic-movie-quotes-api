@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,12 +64,17 @@ Route::controller(QuoteContoller::class)->group(function () {
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+Route::controller(LikeController::class)->group(function () {
+    Route::post('/likes', 'store')->name('likes.store');
+    Route::delete('/likes/{quoteId}', 'destroy')->name('likes.destroy');
 
+});
 
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
+Route::post('/notification/{movie}/like', [ NotificationController::class, 'like'])->name('notification.like');
+Route::post('/notification/{movie}/comment', [ NotificationController::class, 'comment'])->name('notification.comment');
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/profile/email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('email.verification_verify');
     Route::patch('/user/{user}', 'updateUserInfo')->name('user.update');
 });
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');

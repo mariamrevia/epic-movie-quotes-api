@@ -10,7 +10,7 @@ class StoreLikeRequest extends FormRequest
     {
         return [
             'quote_id' => 'required|exists:quotes,id',
-            'is_liked' => 'required|boolean',
+
         ];
     }
 }

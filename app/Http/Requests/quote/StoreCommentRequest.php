@@ -10,7 +10,8 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'body'=> 'required',
-            'quote_id'=>'required'
+            'quote_id'=>'required',
+
         ];
     }
 }

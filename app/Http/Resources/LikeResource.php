@@ -15,7 +15,8 @@ class LikeResource extends JsonResource
             'id' => $this->id,
             'quote_id' => $this->quote_id,
             'user_id' => $this->user_id,
-            'is_liked'=>$this->is_liked
+
+
 
         ];
     }
