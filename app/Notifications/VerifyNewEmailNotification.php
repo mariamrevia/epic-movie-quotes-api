@@ -33,13 +33,13 @@ class VerifyNewEmailNotification extends VerifyEmail
     }
 
 
-    public function toMail($notifiable):EmailConfirmMail
+    public function toMail($notifiable): EmailConfirmMail
     {
 
 
         $redirectUrl = config('app.frontend_url') ;
         $temporarySignedUrl = URL::temporarySignedRoute(
-            'email_verification.verify',
+            'email.verification_verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'id' => $notifiable->getKey(),

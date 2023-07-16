@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Notification as ModelsNotification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -21,11 +22,21 @@ class Notification implements ShouldBroadcast
      */
 
     public $notification;
-    public $actionType;
-    public function __construct($notification, $actionType)
+    public function __construct($notification)
     {
         $this->notification = $notification;
-        $this->actionType = $actionType;
+        $this->saveNotification();
+    }
+    public function saveNotification()
+    {
+        ModelsNotification::create([
+            'to' => $this->notification->to,
+            'from' => $this->notification->from,
+            'image' => $this->notification->image,
+            'username' => $this->notification->username,
+            'action_type' => $this->notification->action_type,
+            'created_at' => $this->notification->created_at,
+        ]);
     }
 
     /**
@@ -36,7 +47,7 @@ class Notification implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('likes.' . $this->notification->to, $this->actionType),
+            new PrivateChannel('likes.' . $this->notification->to),
         ];
     }
 }

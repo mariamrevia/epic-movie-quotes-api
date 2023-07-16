@@ -70,8 +70,15 @@ Route::controller(LikeController::class)->group(function () {
 
 });
 
-Route::post('/notification/{movie}/like', [ NotificationController::class, 'like'])->name('notification.like');
-Route::post('/notification/{movie}/comment', [ NotificationController::class, 'comment'])->name('notification.comment');
+
+Route::controller(NotificationController::class)->group(function () {
+    Route::post('/notification/{movie}/like', 'like')->name('notification.like');
+    Route::get('/notification/{user}', 'show')->name('notification.show');
+    Route::post('/notification/{movie}/comment', 'comment')->name('notification.comment');
+    Route::patch('/notification/markread/{user}', 'markread')->name('notification.markread');
+
+});
+
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/profile/email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('email.verification_verify');
