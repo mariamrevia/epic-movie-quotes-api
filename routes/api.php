@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 
 /*
@@ -82,6 +83,7 @@ Route::controller(NotificationController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/profile/email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('email.verification_verify');
-    Route::patch('/user/{user}', 'updateUserInfo')->name('user.update');
+    Route::patch('/user/{user}', 'update')->name('user.update');
 });
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
+Route::post('/languages/{locale}', [LanguageController::class, 'languageSwitch'])->name('languages.switch');

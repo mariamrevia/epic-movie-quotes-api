@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function updateUserInfo(UserRequest $request, User $user): JsonResponse
+    public function update(UserRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
 
