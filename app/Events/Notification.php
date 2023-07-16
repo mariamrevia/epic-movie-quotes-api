@@ -21,10 +21,10 @@ class Notification implements ShouldBroadcast
      * Create a new event instance.
      */
 
-    public $notification;
-    public function __construct($notification)
+
+    public function __construct(public $notification)
     {
-        $this->notification = $notification;
+
         $this->saveNotification();
     }
     public function saveNotification()

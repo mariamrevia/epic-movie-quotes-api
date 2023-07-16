@@ -20,10 +20,10 @@ class UnLikeQuote implements ShouldBroadcast
      * Create a new event instance.
      */
 
-    public $like;
-    public function __construct($like)
+
+    public function __construct(public $like)
     {
-        $this->like=$like;
+
     }
 
     /**
