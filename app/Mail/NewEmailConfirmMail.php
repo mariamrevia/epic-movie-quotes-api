@@ -6,18 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Message;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetMail extends Mailable
+class NewEmailConfirmMail extends Mailable
 {
     use Queueable;
     use SerializesModels;
 
+    public $verificationUrl;
+
     /**
      * Create a new message instance.
      */
-    public $verificationUrl;
-
     public function __construct(string $verificationUrl)
     {
         $this->verificationUrl = $verificationUrl;
@@ -29,17 +30,17 @@ class PasswordResetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reset Password',
+            subject: 'Confirm Mail',
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function build(): PasswordResetMail
+    public function build(): NewEmailConfirmMail
     {
-        return $this->markdown('password-reset')
-        ->subject('Password Reset Notification')
+        return
+        $this->markdown('confirm-new-mail')
         ->with(['verificationUrl' => $this->verificationUrl]);
     }
 

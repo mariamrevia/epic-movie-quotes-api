@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Mail\EmailConfirmMail;
+use App\Mail\NewEmailConfirmMail;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Bus\Queueable;
@@ -33,7 +33,7 @@ class VerifyNewEmailNotification extends VerifyEmail
     }
 
 
-    public function toMail($notifiable): EmailConfirmMail
+    public function toMail($notifiable): NewEmailConfirmMail
     {
 
 
@@ -53,7 +53,7 @@ class VerifyNewEmailNotification extends VerifyEmail
         $frontendUrl =  $redirectUrl . $path . '?' . $signedUrlParts['query'];
 
 
-        return (new EmailConfirmMail($frontendUrl))
+        return (new NewEmailConfirmMail($frontendUrl))
         ->to($this->newEmail)
         ->subject('Confirm Mail');
     }

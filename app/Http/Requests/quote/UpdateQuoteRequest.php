@@ -12,7 +12,7 @@ class UpdateQuoteRequest extends FormRequest
 
             'body.en'=>'required',
             'body.ka'=>'required',
-            'image'=>'required|image',
+            'image'=>'required',
 
 
 
