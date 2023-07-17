@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\quote;
 
 use App\Http\Requests\quote\StoreQuoteRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\quote\UpdateQuoteRequest;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
@@ -30,10 +31,8 @@ class QuoteContoller extends Controller
         return QuoteResource::make($quote);
     }
 
-    public function update(UpdateQuoteRequest $request, $quoteId): JsonResource
+    public function update(UpdateQuoteRequest $request, Quote $quote): JsonResource
     {
-
-        $quote = Quote::findOrFail($quoteId);
         $quoteAttributes = $request->validated();
 
         if ($request->hasFile('image')) {

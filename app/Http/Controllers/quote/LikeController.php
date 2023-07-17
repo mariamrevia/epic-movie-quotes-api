@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\quote;
 
 use App\Events\LikeNotification;
+use App\Http\Controllers\Controller;
 use App\Events\LikeQuote;
 use App\Events\UnLikeQuote;
 use App\Http\Requests\quote\StoreLikeRequest;

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\quote;
 
 use App\Events\CommentPosted;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\quote\StoreCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
