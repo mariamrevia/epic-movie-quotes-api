@@ -20,14 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'google_id',
-        'username',
-        'email',
-        'password',
-        'image'
-    ];
-
+    protected $guarded = ['id'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -59,5 +52,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function sentNotifications(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'from');
+    }
+
+    public function receivedNotifications(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'to');
     }
 }

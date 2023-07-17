@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -39,13 +39,13 @@ class AuthController extends Controller
 
         if (!$user) {
             throw ValidationException::withMessages([
-                'username' => 'The username must be a valid email address or username',
+                'username' => [trans('validation.valid-username')],
             ]);
         }
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'password' => 'The provided credentials are incorrect',
+                'password' => trans('validation.email'),
             ]);
         }
 

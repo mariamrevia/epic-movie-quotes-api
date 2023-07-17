@@ -16,14 +16,13 @@ class CommentPosted implements ShouldBroadcast
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $comment;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($comment)
+    public function __construct(public $comment, public $image)
     {
-        $this->comment =  $comment;
+
     }
 
     /**

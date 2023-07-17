@@ -40,7 +40,7 @@ class EmailConfirmMail extends Mailable
     public function build(): EmailConfirmMail
     {
         return
-        $this->markdown('confirmMail')
+        $this->markdown('confirm-mail')
         ->with(['verificationUrl' => $this->verificationUrl]);
     }
 

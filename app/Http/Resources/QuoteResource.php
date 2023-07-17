@@ -30,6 +30,7 @@ class QuoteResource extends JsonResource
                 'name' => $movie->getTranslations('name'),
                 'year' => $movie->year,
                 'user' =>  $movie->author->username,
+                'image'=>$movie->author->image,
             ],
             'comments' => CommentResource::collection($comments),
             'likes' => LikeResource::collection($like),

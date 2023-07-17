@@ -48,7 +48,6 @@ class MovieController extends Controller
     public function update(UpdateMovieRequest $request, $movieId): JsonResource
     {
         $movie = Movie::findOrFail($movieId);
-
         $validatedData = $request->validated();
 
 
