@@ -1,66 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Epic-movie-quotes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The Movie-Quotes app is a website where users can sign up and access various features related to movies and their quotes. Once registered, users can log in to the app and do the following functionalities:
 
-## About Laravel
+News Feed: Upon logging in, users are taken to the news feed page. Here, they can see a continuous stream of quotes posted by other users. They can like and leave the comments to quotes.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Movie List: The app also has movie list page where Users can add the movies see there collection of movies. They can view information about each movie, including its title, description, and other details. By selecting a specific movie from the Movie List, users can access movie with quotes associated with that movie. and they can manage that quotes by edit or create methods, Similarly, users can also manage movies within the app. They have the ability to edit the details of an existing movie or delete it.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Profile page:user also can manage there profile and update the information about themselves ad needed.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Table of Contents
 
-## Learning Laravel
+-   Prerequisites
+-   Tech Stack
+-   Getting Started
+-   Migration
+-   Development
+-   Database diagram
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP@8.2 and up
+-   MYSQL@8 and up
+-   npm@9 and up
+-   composer@2 and up
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teck stack
 
-## Laravel Sponsors
+-   Laravel@10.5 - back-end framework
+-   Spatie Translatable - package for translation
+-   Laravel Socialite - provides an expressive, fluent interface to OAuth authentication
+-   Laravel Sanctum - provides a featherweight authentication system for SPAs and simple APIs
+-   Pusher - real-time communication layer between the server and the client
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Getting started
 
-### Premium Partners
+1. First you need to clone Coronatime repository from github
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+https://github.com/RedberryInternship/mariam-revia-epic-movie-quotes-api.git
+```
 
-## Contributing
+2. Next run composer install in order to install all the dependencies.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+```
 
-## Code of Conduct
+3. Install all the JS dependencies:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+and also
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run dev
+```
 
-## License
+4. Now we need to set our env file. Go to the root of your project and execute this command.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+should also provide .env file all the necessary environment variables:
+
+## MYSQL
+
+> DB_CONNECTION=mysql
+
+> DB_HOST=127.0.0.1
+
+> DB_PORT=3306
+
+> DB_DATABASE=**\***
+
+> DB_USERNAME=**\***
+
+> DB_PASSWORD=**\***
+
+## Gmail SMTP
+
+> MAIL_DRIVER=smtp
+
+> MAIL_HOST=smtp.gmail.com
+
+> MAIL_PORT=465
+
+> MAIL_USERNAME=Enter your Gmail address
+
+> MAIL_PASSWORD=**\***
+
+> MAIL_ENCRYPTION=ssl
+
+> MAIL_FROM_NAME=Newsletter
+
+## Pusher
+
+> PUSHER_APP_ID=**\***
+
+> PUSHER_APP_KEY=**\***
+
+> PUSHER_APP_SECRET=**\***
+
+> PUSHER_HOST=
+
+> PUSHER_PORT=443
+
+> PUSHER_SCHEME=https
+
+> PUSHER_APP_CLUSTER=
+
+5. Execute following in root of your project
+
+```bash
+  php artisan key:generate
+```
+
+this generates auth key
+
+## Migration
+
+Then migrating database
+
+```bash
+php artisan migrate
+```
+
+## Development
+
+Run Laravel's built-in development server by executing:
+
+```bash
+ php artisan serve
+```
+
+On JS you may run:
+
+```bash
+ npm run dev
+```
+
+## Database diagram
+
+![diagram](https://i.ibb.co/dfTcLqm/draw-SQL-epic-movie-quotes-export-2023-07-19.png)
