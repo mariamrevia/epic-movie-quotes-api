@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
-    public function languageSwitch(Request $request)
+    public function languageSwitch(Request $request): void
     {
         session(['locale' => $request->locale]);
 
