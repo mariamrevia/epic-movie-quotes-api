@@ -18,11 +18,9 @@ class MovieController extends Controller
 {
     public function index(): JsonResource
     {
-        $user = Auth::user();
-
         $genres = GenreResource::collection(Genre::all());
         $movies = Movie::filter(['search' => request('search') ?? ''])
-            ->where('user_id', $user->id)
+            ->where('user_id', auth()->id())
             ->get();
 
         return MovieResource::collection($movies)
