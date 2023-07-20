@@ -32,9 +32,10 @@ class MovieController extends Controller
     public function store(StoreMovieRequest $request): JsonResource
     {
 
-        $movie = Movie::create([...$request->validated(), 'image' => $request->file('image')->store('images')]
 
-        + ['user_id' => auth()->id()]);
+        $movie = Movie::create([...$request->validated(), 'image' => $request->file('image')->store('images'),'user_id' => auth()->id()]);
+
+
 
         $genres = $request->validated(['genre']);
 
