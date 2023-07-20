@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class QuoteContoller extends Controller
 {
-    public function show(Request $request): JsonResource
+    public function index(Request $request): JsonResource
     {
         $page = request('page') ?? 1;
 

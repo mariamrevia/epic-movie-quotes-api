@@ -49,15 +49,15 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(MovieController::class)->group(function () {
-        Route::get('/movies', 'show')->name('movies.show_all');
+        Route::get('/movies', 'index')->name('movies.show_all');
         Route::post('/movies', 'store')->name('movies.store');
         Route::patch('/movies/{movieId}', 'update')->name('movies.update');
-        Route::get('/movies/search', 'show')->name('movies.show');
+        Route::get('/movies/search', 'index')->name('movies.show');
         Route::delete('/movies/{movie}', 'destroy')->name('movies.destory');
     });
 
     Route::controller(QuoteContoller::class)->group(function () {
-        Route::get('/quotes', 'show')->name('quotes.show_all');
+        Route::get('/quotes', 'index')->name('quotes.show_all');
         Route::post('/quotes', 'store')->name('quotes.store');
         Route::patch('quotes{quote}', 'update')->name('quotes.update');
         Route::get('/quotes/search', 'show')->name('quotes.show');

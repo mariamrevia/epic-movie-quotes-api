@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
-    public function show(): JsonResource
+    public function index(): JsonResource
     {
         $user = Auth::user();
 
