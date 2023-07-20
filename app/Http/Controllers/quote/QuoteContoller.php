@@ -33,14 +33,14 @@ class QuoteContoller extends Controller
 
     public function update(UpdateQuoteRequest $request, Quote $quote): JsonResource
     {
-        $quoteAttributes = $request->validated();
+        $attributes = $request->validated();
 
         if ($request->hasFile('image')) {
             Storage::delete($quote->image);
-            $quoteAttributes['image'] = $request->file('image')->store('images');
+            $attributes['image'] = $request->file('image')->store('images');
         }
 
-        $quote->update($quoteAttributes);
+        $quote->update($attributes);
         return QuoteResource::make($quote);
     }
 
